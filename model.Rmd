@@ -36,5 +36,20 @@ for (var in categorical_vars) {
   new_df[[var]] <- as.integer(factor(new_df[[var]], levels = levels))  # Convert to numeric labels
 }
 new_df
+```
+
+``` {r create-model}
+library(rstanarm);
+
+# Specify the formula for the model
+formula <- act_effort ~ cplx + year + cat2 + acap + pcap
+
+# Fit the Bayesian model
+model <- stan_glm(formula, data = new_df, family = gaussian(),
+                  prior = normal(0, 10), chains = 4, iter = 2000)
+
+# Print a summary of the model
+summary(model)
 
 ```
+

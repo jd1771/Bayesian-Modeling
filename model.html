@@ -477,6 +477,161 @@ new_df</code></pre>
 ## 91           X   13    5 1983    1    1      480.0
 ## 92           X   13    5 1983    1    1       12.0
 ## 93           X   14    5 1983    1    1       38.0</code></pre>
+<pre class="r"><code>library(rstanarm);</code></pre>
+<pre><code>## Loading required package: Rcpp</code></pre>
+<pre><code>## This is rstanarm version 2.21.4</code></pre>
+<pre><code>## - See https://mc-stan.org/rstanarm/articles/priors for changes to default priors!</code></pre>
+<pre><code>## - Default priors may change, so it&#39;s safest to specify priors, even if equivalent to the defaults.</code></pre>
+<pre><code>## - For execution on a local, multicore CPU with excess RAM we recommend calling</code></pre>
+<pre><code>##   options(mc.cores = parallel::detectCores())</code></pre>
+<pre class="r"><code># Specify the formula for the model
+formula &lt;- act_effort ~ cplx + year + cat2 + acap + pcap
+
+# Fit the Bayesian model
+model &lt;- stan_glm(formula, data = new_df, family = gaussian(),
+                  prior = normal(0, 10), chains = 4, iter = 2000)</code></pre>
+<pre><code>## 
+## SAMPLING FOR MODEL &#39;continuous&#39; NOW (CHAIN 1).
+## Chain 1: 
+## Chain 1: Gradient evaluation took 7.1e-05 seconds
+## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.71 seconds.
+## Chain 1: Adjust your expectations accordingly!
+## Chain 1: 
+## Chain 1: 
+## Chain 1: Iteration:    1 / 2000 [  0%]  (Warmup)
+## Chain 1: Iteration:  200 / 2000 [ 10%]  (Warmup)
+## Chain 1: Iteration:  400 / 2000 [ 20%]  (Warmup)
+## Chain 1: Iteration:  600 / 2000 [ 30%]  (Warmup)
+## Chain 1: Iteration:  800 / 2000 [ 40%]  (Warmup)
+## Chain 1: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+## Chain 1: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+## Chain 1: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+## Chain 1: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+## Chain 1: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+## Chain 1: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+## Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
+## Chain 1: 
+## Chain 1:  Elapsed Time: 0.302 seconds (Warm-up)
+## Chain 1:                0.067 seconds (Sampling)
+## Chain 1:                0.369 seconds (Total)
+## Chain 1: 
+## 
+## SAMPLING FOR MODEL &#39;continuous&#39; NOW (CHAIN 2).
+## Chain 2: 
+## Chain 2: Gradient evaluation took 1.4e-05 seconds
+## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.14 seconds.
+## Chain 2: Adjust your expectations accordingly!
+## Chain 2: 
+## Chain 2: 
+## Chain 2: Iteration:    1 / 2000 [  0%]  (Warmup)
+## Chain 2: Iteration:  200 / 2000 [ 10%]  (Warmup)
+## Chain 2: Iteration:  400 / 2000 [ 20%]  (Warmup)
+## Chain 2: Iteration:  600 / 2000 [ 30%]  (Warmup)
+## Chain 2: Iteration:  800 / 2000 [ 40%]  (Warmup)
+## Chain 2: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+## Chain 2: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+## Chain 2: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+## Chain 2: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+## Chain 2: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+## Chain 2: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+## Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
+## Chain 2: 
+## Chain 2:  Elapsed Time: 0.485 seconds (Warm-up)
+## Chain 2:                0.073 seconds (Sampling)
+## Chain 2:                0.558 seconds (Total)
+## Chain 2: 
+## 
+## SAMPLING FOR MODEL &#39;continuous&#39; NOW (CHAIN 3).
+## Chain 3: 
+## Chain 3: Gradient evaluation took 1.8e-05 seconds
+## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.18 seconds.
+## Chain 3: Adjust your expectations accordingly!
+## Chain 3: 
+## Chain 3: 
+## Chain 3: Iteration:    1 / 2000 [  0%]  (Warmup)
+## Chain 3: Iteration:  200 / 2000 [ 10%]  (Warmup)
+## Chain 3: Iteration:  400 / 2000 [ 20%]  (Warmup)
+## Chain 3: Iteration:  600 / 2000 [ 30%]  (Warmup)
+## Chain 3: Iteration:  800 / 2000 [ 40%]  (Warmup)
+## Chain 3: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+## Chain 3: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+## Chain 3: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+## Chain 3: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+## Chain 3: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+## Chain 3: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+## Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)
+## Chain 3: 
+## Chain 3:  Elapsed Time: 0.338 seconds (Warm-up)
+## Chain 3:                0.065 seconds (Sampling)
+## Chain 3:                0.403 seconds (Total)
+## Chain 3: 
+## 
+## SAMPLING FOR MODEL &#39;continuous&#39; NOW (CHAIN 4).
+## Chain 4: 
+## Chain 4: Gradient evaluation took 2.7e-05 seconds
+## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.27 seconds.
+## Chain 4: Adjust your expectations accordingly!
+## Chain 4: 
+## Chain 4: 
+## Chain 4: Iteration:    1 / 2000 [  0%]  (Warmup)
+## Chain 4: Iteration:  200 / 2000 [ 10%]  (Warmup)
+## Chain 4: Iteration:  400 / 2000 [ 20%]  (Warmup)
+## Chain 4: Iteration:  600 / 2000 [ 30%]  (Warmup)
+## Chain 4: Iteration:  800 / 2000 [ 40%]  (Warmup)
+## Chain 4: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+## Chain 4: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+## Chain 4: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+## Chain 4: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+## Chain 4: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+## Chain 4: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+## Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)
+## Chain 4: 
+## Chain 4:  Elapsed Time: 1.248 seconds (Warm-up)
+## Chain 4:                0.066 seconds (Sampling)
+## Chain 4:                1.314 seconds (Total)
+## Chain 4:</code></pre>
+<pre class="r"><code># Print a summary of the model
+summary(model)</code></pre>
+<pre><code>## 
+## Model Info:
+##  function:     stan_glm
+##  family:       gaussian [identity]
+##  formula:      act_effort ~ cplx + year + cat2 + acap + pcap
+##  algorithm:    sampling
+##  sample:       4000 (posterior sample size)
+##  priors:       see help(&#39;prior_summary&#39;)
+##  observations: 93
+##  predictors:   6
+## 
+## Estimates:
+##               mean    sd      10%     50%     90%  
+## (Intercept) 18762.3 18984.9 -5327.1 18607.4 43210.7
+## cplx            5.0    10.0    -8.1     5.3    17.7
+## year           -9.2     9.6   -21.5    -9.1     2.9
+## cat2           14.9     9.8     2.2    15.0    27.9
+## acap            0.6     9.8   -11.7     0.4    13.3
+## pcap            0.9     9.9   -11.5     0.9    13.5
+## sigma        1102.9    86.1   998.6  1095.7  1215.3
+## 
+## Fit Diagnostics:
+##            mean   sd    10%   50%   90%
+## mean_PPD 623.2  161.8 416.0 623.5 828.4
+## 
+## The mean_ppd is the sample average posterior predictive distribution of the outcome variable (for details see help(&#39;summary.stanreg&#39;)).
+## 
+## MCMC diagnostics
+##               mcse  Rhat  n_eff
+## (Intercept)   266.0   1.0 5095 
+## cplx            0.1   1.0 5159 
+## year            0.1   1.0 5091 
+## cat2            0.1   1.0 5325 
+## acap            0.1   1.0 4740 
+## pcap            0.1   1.0 5041 
+## sigma           1.3   1.0 4557 
+## mean_PPD        2.4   1.0 4691 
+## log-posterior   0.0   1.0 1972 
+## 
+## For each parameter, mcse is Monte Carlo standard error, n_eff is a crude measure of effective sample size, and Rhat is the potential scale reduction factor on split chains (at convergence Rhat=1).</code></pre>
 
 
 
