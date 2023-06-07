@@ -18,11 +18,23 @@ variables_of_interest <- c("projectname", "cat2", "cplx", "year", "acap", "pcap"
 
 # Create a new data frame with only the variables of interest
 new_df <- subset(df, select = variables_of_interest);
-new_df
 ```
 
-``` {r get-data-correlations}
+``` {r get-data-info}
 # Lets analyze the correlations between project complexity and the required effort
 effort_by_complexity <- aggregate(act_effort ~ cplx, data = new_df, FUN = mean)
 effort_by_complexity
+```
+
+``` {r convert-categorical-data}
+# Define the categorical variables
+categorical_vars <- c("cat2", "cplx", "acap", "pcap")
+
+# Perform label encoding for each categorical variable
+for (var in categorical_vars) {
+  levels <- unique(new_df[[var]])  # Get unique levels of the variable
+  new_df[[var]] <- as.integer(factor(new_df[[var]], levels = levels))  # Convert to numeric labels
+}
+new_df
+
 ```
