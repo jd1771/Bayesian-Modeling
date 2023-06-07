@@ -359,40 +359,116 @@ display: none;
 
 <pre class="r"><code>library(foreign)
 df &lt;- read.arff(&quot;nasa93.arff&quot;);
-head(df, 10)</code></pre>
-<pre><code>##    recordnumber projectname               cat2 forg center year         mode
-## 1             1          de avionicsmonitoring    g      2 1979 semidetached
-## 2             2          de avionicsmonitoring    g      2 1979 semidetached
-## 3             3          de avionicsmonitoring    g      2 1979 semidetached
-## 4             4          de avionicsmonitoring    g      2 1979 semidetached
-## 5             5          de avionicsmonitoring    g      2 1979 semidetached
-## 6             6          de avionicsmonitoring    g      2 1979 semidetached
-## 7             7          de avionicsmonitoring    g      2 1979 semidetached
-## 8             8         erb avionicsmonitoring    g      2 1982 semidetached
-## 9             9         gal    missionplanning    g      1 1980 semidetached
-## 10           10         gal    missionplanning    g      1 1980 semidetached
-##    rely data cplx time stor virt turn acap aexp pcap vexp lexp modp tool sced
-## 1     h    l    h    n    n    l    l    n    n    n    n    h    h    n    l
-## 2     h    l    h    n    n    l    l    n    n    n    n    h    h    n    l
-## 3     h    l    h    n    n    l    l    n    n    n    n    h    h    n    l
-## 4     h    l    h    n    n    l    l    n    n    n    n    h    h    n    l
-## 5     h    l    h    n    n    l    l    n    n    n    n    h    h    n    l
-## 6     h    l    h    n    n    l    l    n    n    n    n    h    h    n    l
-## 7     h    l    h    n    n    l    l    n    n    n    n    h    h    n    l
-## 8     h    l    h    n    n    l    l    n    n    n    n    h    h    n    l
-## 9     h    l    h   xh   xh    l    h    h    h    h    n    h    h    h    n
-## 10    n    l    h    n    n    l    l    h   vh   vh    n    h    n    n    n
-##    equivphyskloc act_effort
-## 1           25.9      117.6
-## 2           24.6      117.6
-## 3            7.7       31.2
-## 4            8.2       36.0
-## 5            9.7       25.2
-## 6            2.2        8.4
-## 7            3.5       10.8
-## 8           66.6      352.8
-## 9            7.5       72.0
-## 10          20.0       72.0</code></pre>
+
+# Specify the variables we are interested in
+variables_of_interest &lt;- c(&quot;projectname&quot;, &quot;cat2&quot;, &quot;cplx&quot;, &quot;year&quot;, &quot;acap&quot;, &quot;pcap&quot;, &quot;act_effort&quot;);
+
+# Create a new data frame with only the variables of interest
+new_df &lt;- subset(df, select = variables_of_interest);
+new_df</code></pre>
+<pre><code>##    projectname                cat2 cplx year acap pcap act_effort
+## 1           de  avionicsmonitoring    h 1979    n    n      117.6
+## 2           de  avionicsmonitoring    h 1979    n    n      117.6
+## 3           de  avionicsmonitoring    h 1979    n    n       31.2
+## 4           de  avionicsmonitoring    h 1979    n    n       36.0
+## 5           de  avionicsmonitoring    h 1979    n    n       25.2
+## 6           de  avionicsmonitoring    h 1979    n    n        8.4
+## 7           de  avionicsmonitoring    h 1979    n    n       10.8
+## 8          erb  avionicsmonitoring    h 1982    n    n      352.8
+## 9          gal     missionplanning    h 1980    h    h       72.0
+## 10         gal     missionplanning    h 1980    h   vh       72.0
+## 11         gal     missionplanning    h 1984    h    h       24.0
+## 12         gal     missionplanning    h 1980    h   vh      360.0
+## 13         gal     missionplanning    h 1985    h    n       36.0
+## 14         gal     missionplanning    h 1980    h    h      215.0
+## 15         gal     missionplanning    h 1983    h    h       48.0
+## 16         gal     missionplanning    h 1982    h    n      360.0
+## 17         gal     missionplanning    h 1980    h   vh      324.0
+## 18         gal     missionplanning    h 1984    h    h       60.0
+## 19         gal     missionplanning    h 1983    h    h       48.0
+## 20         gal     missionplanning    h 1984    h    n       60.0
+## 21           X  avionicsmonitoring    h 1985    n    n       60.0
+## 22           X  avionicsmonitoring    h 1985    n    n      300.0
+## 23           X          simulation    h 1985    n    n      120.0
+## 24           X     monitor_control    n 1986    n    h       90.0
+## 25           X     monitor_control    h 1986    n    h      210.0
+## 26           X     monitor_control    n 1986    n    h       48.0
+## 27           X  realdataprocessing    h 1982   vh    n       70.0
+## 28           X  realdataprocessing    h 1982   vh    n      239.0
+## 29           X  realdataprocessing    h 1982   vh    n       82.0
+## 30           X      communications    h 1982   vh    n       62.0
+## 31           X batchdataprocessing    h 1982   vh    n      170.0
+## 32           X         datacapture    h 1982   vh    n      192.0
+## 33           X     missionplanning    h 1985    n    n       18.0
+## 34           X  avionicsmonitoring    h 1987    n    n       50.0
+## 35           X  avionicsmonitoring    h 1987    n    n       60.0
+## 36           X     monitor_control    h 1986    n    n       42.0
+## 37           X     monitor_control    h 1986    n    n       60.0
+## 38           X     monitor_control    h 1986    n    h      444.0
+## 39           X     monitor_control    h 1986    n    n       42.0
+## 40           X     monitor_control    h 1986    n    n      114.0
+## 41         hst         datacapture    h 1980    h    h     1248.0
+## 42         slp    launchprocessing    h 1975    n    h     2400.0
+## 43           Y  application_ground    l 1982    h    n     1368.0
+## 44           Y  application_ground    l 1982    h    n      973.0
+## 45           Y  avionicsmonitoring    n 1982    n    h      400.0
+## 46           Y  avionicsmonitoring    n 1977    h   vh     2400.0
+## 47           Y     missionplanning    n 1977    h   vh      420.0
+## 48           Y     missionplanning    h 1984    h    n      252.0
+## 49           Y     missionplanning   xh 1980    n    n      107.0
+## 50           Y          simulation    h 1983    h    h      571.4
+## 51           Y          simulation    h 1984    h    h       98.8
+## 52           Y          simulation    h 1985    h    h      155.0
+## 53           Y     missionplanning   vh 1979    h    n      750.0
+## 54           Y     missionplanning    h 1979    n    n     2120.0
+## 55           Y             utility    h 1979    n    n      370.0
+## 56         spl         datacapture    h 1979   vh   vh     1181.0
+## 57         spl batchdataprocessing   vh 1977    h   vh      278.0
+## 58          de  avionicsmonitoring    h 1979    n    n        8.4
+## 59         slp     operatingsystem   xh 1974    h    h     4560.0
+## 60         slp     operatingsystem    h 1975   vh   vh      720.0
+## 61           Y     operatingsystem   xh 1976    h    n      458.0
+## 62           Y             utility   xh 1979    h    n     2460.0
+## 63           Y  avionicsmonitoring    n 1971    h    h      162.0
+## 64           Y  avionicsmonitoring    n 1980    h    h      150.0
+## 65           Y  avionicsmonitoring    h 1979    h    h      636.0
+## 66           Y  avionicsmonitoring    h 1977    h    h      882.0
+## 67           Y  avionicsmonitoring    h 1976    h    h      444.0
+## 68           Y  avionicsmonitoring    l 1983    h    h      192.0
+## 69           Y  avionicsmonitoring    h 1978    h    h      576.0
+## 70           Y  avionicsmonitoring    n 1979    h    h      432.0
+## 71           Y  avionicsmonitoring    h 1979    h    h       72.0
+## 72           Y  avionicsmonitoring    h 1979    h    h      300.0
+## 73           Y  avionicsmonitoring    h 1979    h    h      300.0
+## 74           Y  avionicsmonitoring    n 1982    h    h      240.0
+## 75           Y  avionicsmonitoring    n 1978    h    h      600.0
+## 76           Y  avionicsmonitoring    h 1978    h    h      756.0
+## 77           Y  avionicsmonitoring   vh 1978    h    h     1200.0
+## 78           Y     operatingsystem   vh 1979    h    h       97.0
+## 79           Y     missionplanning   vh 1984    h    n      409.0
+## 80           Y     missionplanning   vh 1984    h    n      703.0
+## 81         hst            Avionics   vh 1980    n    n     1350.0
+## 82         hst            Avionics    h 1980    h    h      480.0
+## 83         spl            Avionics   vh 1977   vh   vh      599.0
+## 84         spl            Avionics   vh 1977   vh   vh      430.0
+## 85           Y            Avionics   vh 1977    h    h     4178.2
+## 86           Y             science   vh 1977    h    h     1772.5
+## 87           Y            Avionics   vh 1977    h    h     1645.9
+## 88           Y            Avionics   xh 1977    h    h     1924.5
+## 89         gal            Avionics   vh 1982    h    n      648.0
+## 90           Y            Avionics   vh 1980    h    h     8211.0
+## 91           X            Avionics   vh 1983    n    n      480.0
+## 92           X            Avionics   vh 1983    n    n       12.0
+## 93           X             science   vh 1983    n    n       38.0</code></pre>
+<pre class="r"><code># Lets analyze the correlations between project complexity and the required effort
+effort_by_complexity &lt;- aggregate(act_effort ~ cplx, data = new_df, FUN = mean)
+effort_by_complexity</code></pre>
+<pre><code>##   cplx act_effort
+## 1    h   315.2448
+## 2    l   844.3333
+## 3    n   494.2000
+## 4   vh  1341.2706
+## 5   xh  1901.9000</code></pre>
 
 
 

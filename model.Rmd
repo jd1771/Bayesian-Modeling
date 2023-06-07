@@ -12,7 +12,17 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r data-load}
 library(foreign)
 df <- read.arff("nasa93.arff");
-head(df, 10)
 
+# Specify the variables we are interested in
+variables_of_interest <- c("projectname", "cat2", "cplx", "year", "acap", "pcap", "act_effort");
 
+# Create a new data frame with only the variables of interest
+new_df <- subset(df, select = variables_of_interest);
+new_df
+```
+
+``` {r get-data-correlations}
+# Lets analyze the correlations between project complexity and the required effort
+effort_by_complexity <- aggregate(act_effort ~ cplx, data = new_df, FUN = mean)
+effort_by_complexity
 ```
