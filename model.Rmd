@@ -7,7 +7,23 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+#install.packages(c("coda","mvtnorm","devtools","loo", "here", "foreign","dagitty", "posterior","bayesplot"))
+#devtools::install_github("rmcelreath/rethinking")
+
+#install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
+#install_cmdstan(cores = 2) # make sure you have C++ headers etc installed - e.g. COmmand Line Tools on MacoS
+# see https://mc-stan.org/cmdstanr/articles/cmdstanr.html for mor
+
+library(rethinking) # the sw for model specification (it then uses cmdstan)
+library(foreign) # need to load funky data format
+library(here) # make sure working dir is the same all the time
+library(posterior)
+library(bayesplot)
+set.seed(100)
 ```
+
+
 
 ```{r data-load}
 library(foreign)
@@ -39,17 +55,29 @@ new_df
 ```
 
 ``` {r create-model}
-library(rstanarm);
 
-# Specify the formula for the model
-formula <- act_effort ~ cplx + year + cat2 + acap + pcap
 
-# Fit the Bayesian model
-model <- stan_glm(formula, data = new_df, family = gaussian(),
-                  prior = normal(0, 10), chains = 4, iter = 2000)
+library(rethinking)
 
-# Print a summary of the model
-summary(model)
+str(new_df)
+hist(new_df$act_effort)
+
+model <- ulam(
+  alist(
+    effort ~ dnorm(mu, sigma),
+    mu <- a + b_complexity * cmplx + b_year * year + 
+      b_category * cat2 + b_analyst * acap + 
+      b_programmer * pcap,
+    a ~ dnorm(0, 10),
+    b_complexity ~ dnorm(0, 1),
+    b_year ~ dnorm(0, 1),
+    b_category ~ dnorm(0, 1),
+    b_analyst ~ dnorm(0, 1),
+    b_programmer ~ dnorm(0, 1),
+    sigma ~ dexp(1)
+  ),
+  data = new_df
+)
 
 ```
 
