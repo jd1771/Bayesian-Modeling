@@ -477,13 +477,6 @@ new_df</code></pre>
 ## 91           X   13    5 1983    1    1      480.0
 ## 92           X   13    5 1983    1    1       12.0
 ## 93           X   14    5 1983    1    1       38.0</code></pre>
-<pre class="r"><code>library(rstanarm);</code></pre>
-<pre><code>## Loading required package: Rcpp</code></pre>
-<pre><code>## This is rstanarm version 2.21.4</code></pre>
-<pre><code>## - See https://mc-stan.org/rstanarm/articles/priors for changes to default priors!</code></pre>
-<pre><code>## - Default priors may change, so it&#39;s safest to specify priors, even if equivalent to the defaults.</code></pre>
-<pre><code>## - For execution on a local, multicore CPU with excess RAM we recommend calling</code></pre>
-<pre><code>##   options(mc.cores = parallel::detectCores())</code></pre>
 <pre class="r"><code>str(new_df)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    93 obs. of  7 variables:
 ##  $ projectname: Factor w/ 8 levels &quot;de&quot;,&quot;erb&quot;,&quot;gal&quot;,..: 1 1 1 1 1 1 1 2 3 3 ...
@@ -495,6 +488,171 @@ new_df</code></pre>
 ##  $ act_effort : num  117.6 117.6 31.2 36 25.2 ...</code></pre>
 <pre class="r"><code>hist(new_df$act_effort)</code></pre>
 <p><img src="data:image/png;base64,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zv1anknvLCagO9q8lPPD/tSlnL1nLU4NYM1avZlI/209ob2nDiABXdL27ez6p8dvDw8Pnx6/U0+gYwLdUDmbtelZArhCoEY1BDTQ3AFMW1ei+qe//bnyLwkoEFm7ifp0fFycCVreWrn3lxV/XUCByNo/jenO5+rWytnKF3IKKBBZ2yfSD9wtbq1c3pN+tSs5BRSIrN1LOfde/TrYef+hugIpL+pK3+khoEBkrd9MJL+DyHDD82jFTVABBSJr/4705+NbiAw2Slf6FFRAgcjav6Fy7S7Kq95QWUCByAQUIFH7d6Qf7LfbhQe6qNWDSHer/x/eBvTEQSSgQ9pL1PkgnN+fnb3JsoPxtqjTmIDuaDFRR8PLj/51EM4Hx8cvV74UaYWANt2JpF0rLw+ga1rsQP9NEZrB1ufwmqRVv9R46UqtP58CCrR7M5HTnw7uF7eh/6O8GP7BijdVXiGg/3fNBBRY1+3s+p9+Ony18v3sBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQHBBSILHQH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" width="672" /></p>
+<pre class="r"><code>model &lt;- ulam(
+  alist(
+    act_effort ~ dnorm(mu, sigma),
+    mu &lt;- a + b_cplx * cplx + b_year * year + 
+      b_cat2 * cat2 + b_acap * acap + 
+      b_pcap * pcap,
+    a ~ dnorm(0, 10),
+    b_cplx ~ dnorm(0, 1),
+    b_year ~ dnorm(0, 1),
+    b_cat2 ~ dnorm(0, 1),
+    b_acap ~ dnorm(0, 1),
+    b_pcap ~ dnorm(0, 1),
+    sigma ~ dexp(1)
+  ),
+  data = new_df
+)</code></pre>
+<pre><code>## In file included from stan/lib/stan_math/lib/boost_1.78.0/boost/multi_array/multi_array_ref.hpp:32,
+##                  from stan/lib/stan_math/lib/boost_1.78.0/boost/multi_array.hpp:34,
+##                  from stan/lib/stan_math/lib/boost_1.78.0/boost/numeric/odeint/algebra/multi_array_algebra.hpp:22,
+##                  from stan/lib/stan_math/lib/boost_1.78.0/boost/numeric/odeint.hpp:63,
+##                  from stan/lib/stan_math/stan/math/prim/functor/ode_rk45.hpp:9,
+##                  from stan/lib/stan_math/stan/math/prim/functor/integrate_ode_rk45.hpp:6,
+##                  from stan/lib/stan_math/stan/math/prim/functor.hpp:15,
+##                  from stan/lib/stan_math/stan/math/rev/fun.hpp:198,
+##                  from stan/lib/stan_math/stan/math/rev.hpp:10,
+##                  from stan/lib/stan_math/stan/math.hpp:19,
+##                  from stan/src/stan/model/model_header.hpp:4,
+##                  from C:/Users/jus17/AppData/Local/Temp/Rtmpu0759f/model-5440578e32f3.hpp:2:
+## stan/lib/stan_math/lib/boost_1.78.0/boost/functional.hpp:180:45: warning: &#39;template&lt;class _Arg, class _Result&gt; struct std::unary_function&#39; is deprecated [-Wdeprecated-declarations]
+##   180 |         : public boost::functional::detail::unary_function&lt;typename unary_traits&lt;Predicate&gt;::argument_type,bool&gt;
+##       |                                             ^~~~~~~~~~~~~~</code></pre>
+<pre><code>## In file included from C:/rtools42/ucrt64/include/c++/13.1.0/string:49,
+##                  from C:/rtools42/ucrt64/include/c++/13.1.0/bits/locale_classes.h:40,
+##                  from C:/rtools42/ucrt64/include/c++/13.1.0/bits/ios_base.h:41,
+##                  from C:/rtools42/ucrt64/include/c++/13.1.0/ios:44,
+##                  from C:/rtools42/ucrt64/include/c++/13.1.0/istream:40,
+##                  from C:/rtools42/ucrt64/include/c++/13.1.0/sstream:40,
+##                  from C:/rtools42/ucrt64/include/c++/13.1.0/complex:45,
+##                  from stan/lib/stan_math/lib/eigen_3.4.0/Eigen/Core:50,
+##                  from stan/lib/stan_math/lib/eigen_3.4.0/Eigen/Dense:1,
+##                  from stan/lib/stan_math/stan/math/prim/fun/Eigen.hpp:22,
+##                  from stan/lib/stan_math/stan/math/rev.hpp:4:
+## C:/rtools42/ucrt64/include/c++/13.1.0/bits/stl_function.h:117:12: note: declared here
+##   117 |     struct unary_function
+##       |            ^~~~~~~~~~~~~~</code></pre>
+<pre><code>## stan/lib/stan_math/lib/boost_1.78.0/boost/functional.hpp:214:45: warning: &#39;template&lt;class _Arg1, class _Arg2, class _Result&gt; struct std::binary_function&#39; is deprecated [-Wdeprecated-declarations]
+##   214 |         : public boost::functional::detail::binary_function&lt;
+##       |                                             ^~~~~~~~~~~~~~~
+## C:/rtools42/ucrt64/include/c++/13.1.0/bits/stl_function.h:131:12: note: declared here
+##   131 |     struct binary_function
+##       |            ^~~~~~~~~~~~~~~
+## stan/lib/stan_math/lib/boost_1.78.0/boost/functional.hpp:252:45: warning: &#39;template&lt;class _Arg, class _Result&gt; struct std::unary_function&#39; is deprecated [-Wdeprecated-declarations]
+##   252 |         : public boost::functional::detail::unary_function&lt;
+##       |                                             ^~~~~~~~~~~~~~
+## C:/rtools42/ucrt64/include/c++/13.1.0/bits/stl_function.h:117:12: note: declared here
+##   117 |     struct unary_function
+##       |            ^~~~~~~~~~~~~~
+## stan/lib/stan_math/lib/boost_1.78.0/boost/functional.hpp:299:45: warning: &#39;template&lt;class _Arg, class _Result&gt; struct std::unary_function&#39; is deprecated [-Wdeprecated-declarations]
+##   299 |         : public boost::functional::detail::unary_function&lt;
+##       |                                             ^~~~~~~~~~~~~~
+## C:/rtools42/ucrt64/include/c++/13.1.0/bits/stl_function.h:117:12: note: declared here
+##   117 |     struct unary_function
+##       |            ^~~~~~~~~~~~~~
+## stan/lib/stan_math/lib/boost_1.78.0/boost/functional.hpp:345:57: warning: &#39;template&lt;class _Arg, class _Result&gt; struct std::unary_function&#39; is deprecated [-Wdeprecated-declarations]
+##   345 |     class mem_fun_t : public boost::functional::detail::unary_function&lt;T*, S&gt;
+##       |                                                         ^~~~~~~~~~~~~~
+## C:/rtools42/ucrt64/include/c++/13.1.0/bits/stl_function.h:117:12: note: declared here
+##   117 |     struct unary_function
+##       |            ^~~~~~~~~~~~~~
+## stan/lib/stan_math/lib/boost_1.78.0/boost/functional.hpp:361:58: warnin</code></pre>
+<pre><code>## g: &#39;template&lt;class _Arg1, class _Arg2, class _Result&gt; struct std::binary_function&#39; is deprecated [-Wdeprecated-declarations]
+##   361 |     class mem_fun1_t : public boost::functional::detail::binary_function&lt;T*, A, S&gt;
+##       |                                                          ^~~~~~~~~~~~~~~
+## C:/rtools42/ucrt64/include/c++/13.1.0/bits/stl_function.h:131:12: note: declared here
+##   131 |     struct binary_function
+##       |            ^~~~~~~~~~~~~~~</code></pre>
+<pre><code>## stan/lib/stan_math/lib/boost_1.78.0/boost/functional.hpp:377:63: warning: &#39;template&lt;class _Arg, class _Result&gt; struct std::unary_function&#39; is deprecated [-Wdeprecated-declarations]
+##   377 |     class const_mem_fun_t : public boost::functional::detail::unary_function&lt;const T*, S&gt;
+##       |                                                               ^~~~~~~~~~~~~~
+## C:/rtools42/ucrt64/include/c++/13.1.0/bits/stl_function.h:117:12: note: declared here
+##   117 |     struct unary_function
+##       |            ^~~~~~~~~~~~~~
+## stan/lib/stan_math/lib/boost_1.78.0/boost/functional.hpp:393:64: warning: &#39;template&lt;class _Arg1, class _Arg2, class _Result&gt; struct std::binary_function&#39; is deprecated [-Wdeprecated-declarations]
+##   393 |     class const_mem_fun1_t : public boost::functional::detail::binary_function&lt;const T*, A, S&gt;
+##       |                                                                ^~~~~~~~~~~~~~~
+## C:/rtools42/ucrt64/include/c++/13.1.0/bits/stl_function.h:131:12: note: declared here
+##   131 |     struct binary_function
+##       |            ^~~~~~~~~~~~~~~
+## stan/lib/stan_math/lib/boost_1.78.0/boost/functional.hpp:438:61: warning: &#39;template&lt;class _Arg, class _Result&gt; struct std::unary_function&#39; is deprecated [-Wdeprecated-declarations]
+##   438 |     class mem_fun_ref_t : public boost::functional::detail::unary_function&lt;T&amp;, S&gt;
+##       |                                                             ^~~~~~~~~~~~~~
+## C:/rtools42/ucrt64/include/c++/13.1.0/bits/stl_function.h:117:12: note: declared here
+##   117 |     struct unary_function
+##       |            ^~~~~~~~~~~~~~
+## stan/lib/stan_math/lib/boost_1.78.0/boost/functional.hpp:454:62: warning: &#39;template&lt;class _Arg1, class _Arg2, class _Result&gt; struct std::binary_function&#39; is deprecated [-Wdeprecated-declarations]
+##   454 |     class mem_fun1_ref_t : public boost::functional::detail::binary_function&lt;T&amp;, A, S&gt;
+##       |                                                              ^~~~~~~~~~~~~~~
+## C:/rtools42/ucrt64/include/c++/13.1.0/bits/stl_function.</code></pre>
+<pre><code>## h:131:12: note: declared here
+##   131 |     struct binary_function
+##       |            ^~~~~~~~~~~~~~~
+## stan/lib/stan_math/lib/boost_1.78.0/boost/functional.hpp:470:67: warning: &#39;template&lt;class _Arg, class _Result&gt; struct std::unary_function&#39; is deprecated [-Wdeprecated-declarations]
+##   470 |     class const_mem_fun_ref_t : public boost::functional::detail::unary_function&lt;const T&amp;, S&gt;
+##       |                                                                   ^~~~~~~~~~~~~~
+## C:/rtools42/ucrt64/include/c++/13.1.0/bits/stl_function.h:117:12: note: declared here
+##   117 |     struct unary_function
+##       |            ^~~~~~~~~~~~~~
+## stan/lib/stan_math/lib/boost_1.78.0/boost/functional.hpp:487:68: warning: &#39;template&lt;class _Arg1, class _Arg2, class _Result&gt; struct std::binary_function&#39; is deprecated [-Wdeprecated-declarations]
+##   487 |     class const_mem_fun1_ref_t : public boost::functional::detail::binary_function&lt;const T&amp;, A, S&gt;
+##       |                                                                    ^~~~~~~~~~~~~~~
+## C:/rtools42/ucrt64/include/c++/13.1.0/bits/stl_function.h:131:12: note: declared here
+##   131 |     struct binary_function
+##       |            ^~~~~~~~~~~~~~~
+## stan/lib/stan_math/lib/boost_1.78.0/boost/functional.hpp:533:73: warning: &#39;template&lt;class _Arg, class _Result&gt; struct std::unary_function&#39; is deprecated [-Wdeprecated-declarations]
+##   533 |     class pointer_to_unary_function : public boost::functional::detail::unary_function&lt;Arg,Result&gt;
+##       |                                                                         ^~~~~~~~~~~~~~
+## C:/rtools42/ucrt64/include/c++/13.1.0/bits/stl_function.h:117:12: note: declared here
+##   117 |     struct unary_function
+##       |            ^~~~~~~~~~~~~~
+## stan/lib/stan_math/lib/boost_1.78.0/boost/functional.hpp:557:74: warning: &#39;template&lt;class _Arg1, class _Arg2, class _Result&gt; struct std::binary_function&#39; is deprecated [-Wdeprecated-declarations]
+##   557 |     class pointer_to_binary_function : public boost::functional::detail::binary_fun</code></pre>
+<pre><code>## ction&lt;Arg1,Arg2,Result&gt;
+##       |                                                                          ^~~~~~~~~~~~~~~
+## C:/rtools42/ucrt64/include/c++/13.1.0/bits/stl_function.h:131:12: note: declared here
+##   131 |     struct binary_function
+##       |            ^~~~~~~~~~~~~~~</code></pre>
+<pre><code>## In file included from stan/lib/stan_math/stan/math/prim/prob/von_mises_lccdf.hpp:5,
+##                  from stan/lib/stan_math/stan/math/prim/prob/von_mises_ccdf_log.hpp:4,
+##                  from stan/lib/stan_math/stan/math/prim/prob.hpp:356,
+##                  from stan/lib/stan_math/stan/math/prim.hpp:16,
+##                  from stan/lib/stan_math/stan/math/rev.hpp:14:
+## stan/lib/stan_math/stan/math/prim/prob/von_mises_cdf.hpp: In function &#39;stan::return_type_t&lt;T_x, T_sigma, T_l&gt; stan::math::von_mises_cdf(const T_x&amp;, const T_mu&amp;, const T_k&amp;)&#39;:
+## stan/lib/stan_math/stan/math/prim/prob/von_mises_cdf.hpp:194: note: &#39;-Wmisleading-indentation&#39; is disabled from this point onwards, since column-tracking was disabled due to the size of the code/headers
+##   194 |       if (cdf_n &lt; 0.0)
+##       |</code></pre>
+<pre><code>## stan/lib/stan_math/stan/math/prim/prob/von_mises_cdf.hpp:194: note: adding &#39;-flarge-source-files&#39; will allow for more column-tracking support, at the expense of compilation time and memory</code></pre>
+<pre><code>## In file included from stan/src/stan/model/model_header.hpp:11:
+## stan/src/stan/model/model_base_crtp.hpp: At global scope:
+## stan/src/stan/model/model_base_crtp.hpp:198: warning: &#39;void stan::model::model_base_crtp&lt;M&gt;::write_array(boost::random::ecuyer1988&amp;, std::vector&lt;double, std::allocator&lt;double&gt; &gt;&amp;, std::vector&lt;int&gt;&amp;, std::vector&lt;double, std::allocator&lt;double&gt; &gt;&amp;, bool, bool, std::ostream*) const [with M = model_5440578e32f3_model_namespace::model_5440578e32f3_model; boost::random::ecuyer1988 = boost::random::additive_combine_engine&lt;boost::random::linear_congruential_engine&lt;unsigned int, 40014, 0, 2147483563&gt;, boost::random::linear_congruential_engine&lt;unsigned int, 40692, 0, 2147483399&gt; &gt;; std::ostream = std::basic_ostream&lt;char&gt;]&#39; was hidden [-Woverloaded-virtual=]
+##   198 |   void write_array(boost::ecuyer1988&amp; rng, std::vector&lt;double&gt;&amp; theta,
+##       |</code></pre>
+<pre><code>## C:/Users/jus17/AppData/Local/Temp/Rtmpu0759f/model-5440578e32f3.hpp:479: note:   by &#39;model_5440578e32f3_model_namespace::model_5440578e32f3_model::write_array&#39;
+##   479 |   write_array(RNG&amp; base_rng, std::vector&lt;double&gt;&amp; params_r, std::vector&lt;int&gt;&amp;
+##       | 
+## stan/src/stan/model/model_base_crtp.hpp:136: warning: &#39;void stan::model::model_base_crtp&lt;M&gt;::write_array(boost::random::ecuyer1988&amp;, Eigen::VectorXd&amp;, Eigen::VectorXd&amp;, bool, bool, std::ostream*) const [with M = model_5440578e32f3_model_namespace::model_5440578e32f3_model; boost::random::ecuyer1988 = boost::random::additive_combine_engine&lt;boost::random::linear_congruential_engine&lt;unsigned int, 40014, 0, 2147483563&gt;, boost::random::linear_congruential_engine&lt;unsigned int, 40692, 0, 2147483399&gt; &gt;; Eigen::VectorXd = Eigen::Matrix&lt;double, -1, 1&gt;; std::ostream = std::basic_ostream&lt;char&gt;]&#39; was hidden [-Woverloaded-virtual=]
+##   136 |   void write_array(boost::ecuyer1988&amp; rng, Eigen::VectorXd&amp; theta,
+##       | 
+## C:/Users/jus17/AppData/Local/Temp/Rtmpu0759f/model-5440578e32f3.hpp:479: note:   by &#39;model_5440578e32f3_model_namespace::model_5440578e32f3_model::write_array&#39;
+##   479 |   write_array(RNG&amp; base_rng, std::vector&lt;double&gt;&amp; params_r, std::vector&lt;int&gt;&amp;
+##       |</code></pre>
+<pre><code>## Running MCMC with 1 chain, with 1 thread(s) per chain...
+## 
+## Chain 1 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 1 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 1 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 1 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 1 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 1 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 1 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 1 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 1 finished in 0.8 seconds.</code></pre>
 
 
 
