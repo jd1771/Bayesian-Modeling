@@ -491,15 +491,14 @@ new_df</code></pre>
 <pre class="r"><code>model &lt;- ulam(
   alist(
     act_effort ~ dnorm(mu, sigma),
-    mu &lt;- a + b_cplx * cplx + b_year * year + 
+    mu &lt;- b_cplx * cplx + b_year * year + 
       b_cat2 * cat2 + b_acap * acap + 
       b_pcap * pcap,
-    a ~ dnorm(0, 10),
-    b_cplx ~ dnorm(0, 1),
-    b_year ~ dnorm(0, 1),
-    b_cat2 ~ dnorm(0, 1),
-    b_acap ~ dnorm(0, 1),
-    b_pcap ~ dnorm(0, 1),
+    b_cplx ~ dnorm(0, 10),
+    b_year ~ dnorm(0, 10),
+    b_cat2 ~ dnorm(0, 10),
+    b_acap ~ dnorm(0, 10),
+    b_pcap ~ dnorm(0, 10),
     sigma ~ dexp(1)
   ),
   data = new_df
@@ -515,7 +514,7 @@ new_df</code></pre>
 ##                  from stan/lib/stan_math/stan/math/rev.hpp:10,
 ##                  from stan/lib/stan_math/stan/math.hpp:19,
 ##                  from stan/src/stan/model/model_header.hpp:4,
-##                  from C:/Users/jus17/AppData/Local/Temp/Rtmpu0759f/model-5440578e32f3.hpp:2:
+##                  from C:/Users/jus17/AppData/Local/Temp/Rtmpcd17CS/model-42f837732227.hpp:2:
 ## stan/lib/stan_math/lib/boost_1.78.0/boost/functional.hpp:180:45: warning: &#39;template&lt;class _Arg, class _Result&gt; struct std::unary_function&#39; is deprecated [-Wdeprecated-declarations]
 ##   180 |         : public boost::functional::detail::unary_function&lt;typename unary_traits&lt;Predicate&gt;::argument_type,bool&gt;
 ##       |                                             ^~~~~~~~~~~~~~</code></pre>
@@ -626,17 +625,17 @@ new_df</code></pre>
 <pre><code>## stan/lib/stan_math/stan/math/prim/prob/von_mises_cdf.hpp:194: note: adding &#39;-flarge-source-files&#39; will allow for more column-tracking support, at the expense of compilation time and memory</code></pre>
 <pre><code>## In file included from stan/src/stan/model/model_header.hpp:11:
 ## stan/src/stan/model/model_base_crtp.hpp: At global scope:
-## stan/src/stan/model/model_base_crtp.hpp:198: warning: &#39;void stan::model::model_base_crtp&lt;M&gt;::write_array(boost::random::ecuyer1988&amp;, std::vector&lt;double, std::allocator&lt;double&gt; &gt;&amp;, std::vector&lt;int&gt;&amp;, std::vector&lt;double, std::allocator&lt;double&gt; &gt;&amp;, bool, bool, std::ostream*) const [with M = model_5440578e32f3_model_namespace::model_5440578e32f3_model; boost::random::ecuyer1988 = boost::random::additive_combine_engine&lt;boost::random::linear_congruential_engine&lt;unsigned int, 40014, 0, 2147483563&gt;, boost::random::linear_congruential_engine&lt;unsigned int, 40692, 0, 2147483399&gt; &gt;; std::ostream = std::basic_ostream&lt;char&gt;]&#39; was hidden [-Woverloaded-virtual=]
+## stan/src/stan/model/model_base_crtp.hpp:198: warning: &#39;void stan::model::model_base_crtp&lt;M&gt;::write_array(boost::random::ecuyer1988&amp;, std::vector&lt;double, std::allocator&lt;double&gt; &gt;&amp;, std::vector&lt;int&gt;&amp;, std::vector&lt;double, std::allocator&lt;double&gt; &gt;&amp;, bool, bool, std::ostream*) const [with M = model_42f837732227_model_namespace::model_42f837732227_model; boost::random::ecuyer1988 = boost::random::additive_combine_engine&lt;boost::random::linear_congruential_engine&lt;unsigned int, 40014, 0, 2147483563&gt;, boost::random::linear_congruential_engine&lt;unsigned int, 40692, 0, 2147483399&gt; &gt;; std::ostream = std::basic_ostream&lt;char&gt;]&#39; was hidden [-Woverloaded-virtual=]
 ##   198 |   void write_array(boost::ecuyer1988&amp; rng, std::vector&lt;double&gt;&amp; theta,
 ##       |</code></pre>
-<pre><code>## C:/Users/jus17/AppData/Local/Temp/Rtmpu0759f/model-5440578e32f3.hpp:479: note:   by &#39;model_5440578e32f3_model_namespace::model_5440578e32f3_model::write_array&#39;
-##   479 |   write_array(RNG&amp; base_rng, std::vector&lt;double&gt;&amp; params_r, std::vector&lt;int&gt;&amp;
+<pre><code>## C:/Users/jus17/AppData/Local/Temp/Rtmpcd17CS/model-42f837732227.hpp:455: note:   by &#39;model_42f837732227_model_namespace::model_42f837732227_model::write_array&#39;
+##   455 |   write_array(RNG&amp; base_rng, std::vector&lt;double&gt;&amp; params_r, std::vector&lt;int&gt;&amp;
 ##       | 
-## stan/src/stan/model/model_base_crtp.hpp:136: warning: &#39;void stan::model::model_base_crtp&lt;M&gt;::write_array(boost::random::ecuyer1988&amp;, Eigen::VectorXd&amp;, Eigen::VectorXd&amp;, bool, bool, std::ostream*) const [with M = model_5440578e32f3_model_namespace::model_5440578e32f3_model; boost::random::ecuyer1988 = boost::random::additive_combine_engine&lt;boost::random::linear_congruential_engine&lt;unsigned int, 40014, 0, 2147483563&gt;, boost::random::linear_congruential_engine&lt;unsigned int, 40692, 0, 2147483399&gt; &gt;; Eigen::VectorXd = Eigen::Matrix&lt;double, -1, 1&gt;; std::ostream = std::basic_ostream&lt;char&gt;]&#39; was hidden [-Woverloaded-virtual=]
+## stan/src/stan/model/model_base_crtp.hpp:136: warning: &#39;void stan::model::model_base_crtp&lt;M&gt;::write_array(boost::random::ecuyer1988&amp;, Eigen::VectorXd&amp;, Eigen::VectorXd&amp;, bool, bool, std::ostream*) const [with M = model_42f837732227_model_namespace::model_42f837732227_model; boost::random::ecuyer1988 = boost::random::additive_combine_engine&lt;boost::random::linear_congruential_engine&lt;unsigned int, 40014, 0, 2147483563&gt;, boost::random::linear_congruential_engine&lt;unsigned int, 40692, 0, 2147483399&gt; &gt;; Eigen::VectorXd = Eigen::Matrix&lt;double, -1, 1&gt;; std::ostream = std::basic_ostream&lt;char&gt;]&#39; was hidden [-Woverloaded-virtual=]
 ##   136 |   void write_array(boost::ecuyer1988&amp; rng, Eigen::VectorXd&amp; theta,
 ##       | 
-## C:/Users/jus17/AppData/Local/Temp/Rtmpu0759f/model-5440578e32f3.hpp:479: note:   by &#39;model_5440578e32f3_model_namespace::model_5440578e32f3_model::write_array&#39;
-##   479 |   write_array(RNG&amp; base_rng, std::vector&lt;double&gt;&amp; params_r, std::vector&lt;int&gt;&amp;
+## C:/Users/jus17/AppData/Local/Temp/Rtmpcd17CS/model-42f837732227.hpp:455: note:   by &#39;model_42f837732227_model_namespace::model_42f837732227_model::write_array&#39;
+##   455 |   write_array(RNG&amp; base_rng, std::vector&lt;double&gt;&amp; params_r, std::vector&lt;int&gt;&amp;
 ##       |</code></pre>
 <pre><code>## Running MCMC with 1 chain, with 1 thread(s) per chain...
 ## 

@@ -70,15 +70,14 @@ hist(new_df$act_effort)
 model <- ulam(
   alist(
     act_effort ~ dnorm(mu, sigma),
-    mu <- a + b_cplx * cplx + b_year * year + 
+    mu <- b_cplx * cplx + b_year * year + 
       b_cat2 * cat2 + b_acap * acap + 
       b_pcap * pcap,
-    a ~ dnorm(0, 10),
-    b_cplx ~ dnorm(0, 1),
-    b_year ~ dnorm(0, 1),
-    b_cat2 ~ dnorm(0, 1),
-    b_acap ~ dnorm(0, 1),
-    b_pcap ~ dnorm(0, 1),
+    b_cplx ~ dnorm(0, 10),
+    b_year ~ dnorm(0, 10),
+    b_cat2 ~ dnorm(0, 10),
+    b_acap ~ dnorm(0, 10),
+    b_pcap ~ dnorm(0, 10),
     sigma ~ dexp(1)
   ),
   data = new_df
