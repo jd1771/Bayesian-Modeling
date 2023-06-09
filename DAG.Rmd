@@ -1,0 +1,36 @@
+---
+title: "DAG"
+author: "Jas Dhaul"
+date: "2023-06-09"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+
+```
+
+
+``` {r create-dag}
+
+library(ggdag)
+library(ggplot2)
+
+
+
+tidy_ggdag <- dagify(
+  act_effort ~ year + cmplx + pcap + acap + cat2,
+  cmplx ~ cat2,
+  exposure = "year",
+  outcome = "act_effort"
+) %>%
+  tidy_dagitty()
+
+
+ggdag(tidy_ggdag) +
+  theme_dag()
+
+```
+
+
