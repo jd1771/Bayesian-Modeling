@@ -44,7 +44,7 @@ effort_by_complexity
 
 ``` {r convert-categorical-data}
 # Define the categorical variables
-categorical_vars <- c("cat2", "cplx", "acap", "pcap")
+categorical_vars <- c("year", "cat2", "cplx", "acap", "pcap")
 
 # Perform label encoding for each categorical variable
 for (var in categorical_vars) {
@@ -67,15 +67,15 @@ hist(new_df$act_effort,  xlab = 'Effort Level', main = 'Distribution of Effort L
 model <- ulam(
   alist(
     act_effort ~ dnorm(mu, sigma),
-    mu <- a + b_cplx * cplx + b_year * year + 
-      b_cat2 * cat2 + b_acap * acap + 
-      b_pcap * pcap,
+    mu <- a + b_cplx[cplx] + b_year[year] + 
+      b_cat2[cat2] + b_acap[acap] + 
+      b_pcap[pcap],
     a ~ dnorm(0, 10),
-    b_cplx ~ dnorm(0, 0.1),
-    b_year ~ dnorm(0, 0.1),
-    b_cat2 ~ dnorm(0, 0.1),
-    b_acap ~ dnorm(0, 0.1),
-    b_pcap ~ dnorm(0, 0.1),
+    b_cplx[cplx] ~ dnorm(0, 1),
+    b_year[year] ~ dnorm(0, 1),
+    b_cat2[cat2] ~ dnorm(0, 1),
+    b_acap[acap] ~ dnorm(0, 1),
+    b_pcap[pcap] ~ dnorm(0, 1),
     sigma ~ dexp(1)
   ),
   data = new_df
