@@ -1,0 +1,87 @@
+---
+title: "Bayesian modeling"
+author: "Vibhu Behl, Jas Dhaul"
+date: "2023-06-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+#install.packages(c("coda","mvtnorm","devtools","loo", "here", "foreign","dagitty", "posterior","bayesplot"))
+#devtools::install_github("rmcelreath/rethinking")
+
+#install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
+#install_cmdstan(cores = 2) # make sure you have C++ headers etc installed - e.g. COmmand Line Tools on MacoS
+
+# see https://mc-stan.org/cmdstanr/articles/cmdstanr.html for mor
+
+
+
+
+
+library(rethinking) # the sw for model specification (it then uses cmdstan)
+library(foreign) # need to load funky data format
+library(here) # make sure working dir is the same all the time
+library(cmdstanr)
+library(posterior)
+library(bayesplot)
+set.seed(100)
+```
+
+
+
+```{r data-load}
+library(foreign)
+df <- read.arff("nasa93.arff");
+
+# Specify the variables we are interested in
+variables_of_interest <- c("projectname", "cat2", "cplx", "year", "acap", "pcap", "act_effort");
+
+# Create a new data frame with only the variables of interest
+new_df <- subset(df, select = variables_of_interest);
+```
+
+``` {r get-data-info}
+# Lets analyze the correlations between project complexity and the required effort
+effort_by_complexity <- aggregate(act_effort ~ cplx, data = new_df, FUN = mean)
+effort_by_complexity
+```
+
+``` {r convert-categorical-data}
+# Define the categorical variables
+categorical_vars <- c("cat2", "cplx", "acap", "pcap")
+
+# Perform label encoding for each categorical variable
+for (var in categorical_vars) {
+  levels <- unique(new_df[[var]])  # Get unique levels of the variable
+  new_df[[var]] <- as.integer(factor(new_df[[var]], levels = levels))  # Convert to numeric labels
+}
+new_df
+```
+
+``` {r create-model}
+
+
+
+str(new_df)
+hist(new_df$act_effort)
+
+model <- ulam(
+  alist(
+    act_effort ~ dnorm(mu, sigma),
+    mu <- b_cplx * cplx + b_year * year + 
+      b_cat2 * cat2 + b_acap * acap + 
+      b_pcap * pcap,
+    b_cplx ~ dnorm(0, 10),
+    b_year ~ dnorm(0, 10),
+    b_cat2 ~ dnorm(0, 10),
+    b_acap ~ dnorm(0, 10),
+    b_pcap ~ dnorm(0, 10),
+    sigma ~ dexp(1)
+  ),
+  data = new_df
+)
+
+```
+
