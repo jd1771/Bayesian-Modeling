@@ -40,6 +40,8 @@ variables_of_interest <- c("projectname", "cat2", "cplx", "year", "acap", "pcap"
 
 # Create a new data frame with only the variables of interest
 new_df <- subset(df, select = variables_of_interest);
+
+summary(new_df)
 ```
 
 ``` {r get-data-info}
@@ -59,25 +61,83 @@ for (var in categorical_vars) {
 }
 new_df
 ```
+``` {r create-model}
+str(new_df)
+hist(new_df$act_effort)
+hist(new_df$cplx)
+hist(new_df$year)
+hist(new_df$cat2)
+```
+
+``` {r create-model}
+#define x-values
+x <- seq(1970, 1985, by=1)   
+  
+#calculate gamma density for each x-value
+y <- dnorm(x, 1981, 1900)
+  
+#create density plot
+plot(y)
+
+```
+``` {r create-model}
+#define x-values
+max(rlnorm(100, 4, 2))
+max(rlnorm(100, 5, 2))
+max(rlnorm(100, 6, 2)) 
+max(rlnorm(100, 7, 2)) 
+
+```
+
+
+``` {r create-model}
+#define x-values
+x <- seq(0, 5, by=1)   
+  
+#calculate gamma density for each x-value
+y <- dcauchy(x, 0, 0.005) 
+  
+#create density plot
+plot(y)
+
+```
+
 
 ``` {r create-model}
 
 
+model2 = ulam(
+  alist(
+    act_effort ~ dgampois(lambda, scale),
+    log(lambda) <- b_cplx * cplx + b_year * year + b_cat2 * cat2 + b_acap * acap + b_pcap * pcap,
+    b_cplx ~ normal(0, 1),
+    b_year ~ normal(0, 1),
+    b_cat2 ~ normal(0, 1),
+    b_acap ~ normal(0, 1),
+    b_pcap ~ normal(0, 1),
+    scale ~ dexp(1)
+  ),
+  data = new_df, chains = 4, cores = 4, log_lik = TRUE
+)
+precis(model2)
 
-str(new_df)
-hist(new_df$act_effort)
-
-model <- ulam(
+```
+``` {r create-model}
+postcheck(model2, window = 81)
+```
+``` {r create-model}
+model1 = ulam(
   alist(
     act_effort ~ dnorm(mu, sigma),
-    mu <- b_cplx * cplx + b_year * year + 
-      b_cat2 * cat2 + b_acap * acap + 
-      b_pcap * pcap,
-    b_cplx ~ dnorm(0, 10),
-    b_year ~ dnorm(0, 10),
-    b_cat2 ~ dnorm(0, 10),
-    b_acap ~ dnorm(0, 10),
-    b_pcap ~ dnorm(0, 10),
+    mu <- a + b_cplx[cplx] + b_year[year] + 
+      b_cat2[cat2] + b_acap[acap] + 
+      b_pcap[pcap],
+    a ~ dnorm(0, 10),
+    b_cplx[cplx] ~ dnorm(0, 1),
+    b_year[year] ~ dnorm(0, 1),
+    b_cat2[cat2] ~ dnorm(0, 1),
+    b_acap[acap] ~ dnorm(0, 1),
+    b_pcap[pcap] ~ dnorm(0, 1),
     sigma ~ dexp(1)
   ),
   data = new_df
@@ -85,3 +145,6 @@ model <- ulam(
 
 ```
 
+``` {r create-model}
+(loo_est <- compare(model1, model2, func=LOO))
+```
